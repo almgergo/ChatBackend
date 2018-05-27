@@ -5,6 +5,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import chat.domain.Topic;
 
-public interface TopicRepository extends JpaRepository<Topic, Long>, QueryDslPredicateExecutor<Topic> {
+public interface TopicRepository extends JpaRepository<Topic, String>, QueryDslPredicateExecutor<Topic> {
 
 }

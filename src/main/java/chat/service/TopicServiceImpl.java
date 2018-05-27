@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
+
+import chat.domain.QTopic;
 import chat.domain.Topic;
 import chat.repository.TopicRepository;
 
@@ -21,20 +24,32 @@ public class TopicServiceImpl implements TopicService {
 	private TopicRepository topicRepository;
 
 	@Override
-	public Topic getTopic(final Long id) {
-		return this.topicRepository.findOne(id);
+	public Topic getTopic(final String name) {
+		return this.topicRepository.findOne(name);
 	}
 
 	@Override
-	public void saveTopic(final Topic topic) {
-		this.topicRepository.save(topic);
+	public Topic saveTopic(final Topic topic) {
+		return this.topicRepository.save(topic);
 	}
 
 	@Override
 	public List<Topic> getTopicsMatching(final String topicName) {
-		// return
-		// Lists.newArrayList(this.topicRepository.findAll(QTopic.topic.name.containsIgnoreCase(topicName)));
-		return null;
+		return Lists.newArrayList(this.topicRepository.findAll(QTopic.topic.name.containsIgnoreCase(topicName)));
+	}
+
+	@Override
+	public List<Topic> getAllTopics() {
+		return this.topicRepository.findAll();
+	}
+
+	@Override
+	public Topic registerNewTopic(final String name) {
+		Topic topic = this.getTopic(name);
+		if (topic == null) {
+			topic = this.saveTopic(Topic.builder().name(name).searchCount(0L).build());
+		}
+		return topic;
 	}
 
 }

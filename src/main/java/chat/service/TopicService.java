@@ -12,10 +12,14 @@ import chat.domain.Topic;
  */
 public interface TopicService {
 
-	public Topic getTopic(Long id);
+	public Topic getTopic(final String name);
 
-	public void saveTopic(Topic topic);
+	public Topic saveTopic(Topic topic);
 
 	public List<Topic> getTopicsMatching(String topicName);
+
+	public List<Topic> getAllTopics();
+
+	public Topic registerNewTopic(String topicName);
 
 }
